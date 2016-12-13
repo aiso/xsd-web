@@ -1,0 +1,32 @@
+{
+  "primary": "#4fd2c2",
+  "secondary": "#284f75",
+  "success": "#3ABA58",
+  "price": "#E53206",
+  "error": "#BA3A3A",
+  "warning": "#BA783A",
+  "background": "#FBF9FE",
+  "bgLight": "#f1f1f1",
+  "footer": "#f0f2f7",
+  "text": "#686868",
+  "textLight": "#b1b1b1",
+  "headerHeight": "48px",
+  "footerHeight": "48px",
+  "header": "64px",
+  "blockSize": "44px",
+  "grayLight": "#dbdbdb",
+  "border": "#e7e7e9",
+
+  "formHeight": "38px",
+
+  "blue":"#2D96E9",
+  "blue-primary":"#3598db",
+  "blue-light":"#4FC7E8",
+  "blue-deep":"#2d3e50",
+  "green":"#4fd2c2",
+  "green-light":"#7FD17C",
+  "green-dark":"#598102",
+  "orange":"#FF8702",
+  "red":"#ee5f5b",
+  "red-dark":"#E53206"
+}
