@@ -37,9 +37,10 @@ export default {
     handleChange (e) {
       this.textMessage = e.target.value
     },
-    open(title){
+    open(title, text){
       this.title = title
       this.show=true
+      !!text && (this.textMessage = text)
 
       return new Promise((resolve, reject) => {
         this.deferred = { resolve, reject }
@@ -60,7 +61,7 @@ export default {
   },
   computed: {
     _disabled(){
-      return !this.textMessage || this.textMessage.length<=4
+      return !this.textMessage || this.textMessage.length<1
     },
   },
   components: {

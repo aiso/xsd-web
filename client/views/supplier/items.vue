@@ -12,7 +12,7 @@
       <div class="flex-row page-header">
         <div class="page-title flex-auto">我的产品</div>  
         <div>
-          <router-link class="btn p10 c-green" to="/supplier/item/new">
+          <router-link class="btn-round primary" to="/supplier/item/new">
             <c-icon name='material-add'></c-icon>
           </router-link>
         </div>
@@ -21,7 +21,7 @@
       <c-cell v-for='item in items'>
 
         <c-xsd-item :item='item' @xsd-item-click="itemClick">
-          <div slot="right" class="text-center">
+          <div slot="right" class="text-center plr5">
             <router-link :to="{ name: 'supplier/item/post', params: { id: item.id }}">
               <h2 class="text-bold">{{item.posts.length}}</h2>
               <h5>发布</h5>

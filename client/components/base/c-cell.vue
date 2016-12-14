@@ -46,7 +46,7 @@ export default {
     border-bottom-right-radius: inherit;
   }
 
-  &:active {
+  &.cell-btn:active {
     background-color: color(var(--secondary) alpha(10%))
   }
 }
