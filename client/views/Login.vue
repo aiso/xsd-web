@@ -1,6 +1,12 @@
 <template>
   <div class="page-wrapper">
+
     <div class="page-content" style="width:400px;">
+      <h2 class="mb10 text-ls">鲜时达生活店</h2>
+      <h3 class="c-text-light">
+        我们致力于改善你的生活方式，放心的网购，贴心的服务，方便的生活。
+      </h3>
+
       <c-pane>
         <c-form-cell>
           <c-icon name="material-person"></c-icon>

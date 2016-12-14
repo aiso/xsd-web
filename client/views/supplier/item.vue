@@ -1,24 +1,21 @@
 <template>
   <c-page :state="state">
-    <div v-if="item">
-      <div class="flex-row p10 border-bottom">
-        <div class="flex-auto">
-        </div>
-        <h5 class="c-text-light plr10">售价</h5>
+    <div class="page-content" v-if="item">
+      <div class="flex-row page-header">
+        <div class="page-title flex-auto">产品</div>  
         <div>
-          <c-price :amount="item.price" class="c-red"></c-price>
+          <a class="btn p10" @click="removeItem">
+            <c-icon name='material-delete_forever'></c-icon>
+          </a>
+          <router-link class="btn p10" :to="{ name: 'supplier/item/edit', params: { id: item.id }}">
+            <c-icon name='material-edit'></c-icon>
+          </router-link>
         </div>
       </div>
+
       <v-xsd-item :item="item" v-if="!!item"></v-xsd-item>
-      <c-xsd-toolbar>
-        <a class="btn" @click="removeItem">
-          <c-icon name='material-delete_forever'></c-icon>
-        </a>
-        <router-link class="btn" :to="{ name: 'supplier/item/edit', params: { id: item.id }}">
-          <c-icon name='material-edit'></c-icon>
-        </router-link>
-      </c-xsd-toolbar>
     </div>
+
   </c-page>
 </template>
 

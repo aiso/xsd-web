@@ -7,25 +7,39 @@
   		</div>
     </c-background>
 
-    <div class="p10 bg-white" v-if="items.length>0">
+
+    <div class="page-content" v-if="items.length>0">
+      <div class="flex-row page-header">
+        <div class="page-title flex-auto">我的产品</div>  
+        <div>
+          <router-link class="btn p10 c-green" to="/supplier/item/new">
+            <c-icon name='material-add'></c-icon>
+          </router-link>
+        </div>
+      </div>
+      
       <c-cell v-for='item in items'>
-        <router-link :to="{ name: 'supplier/item', params: { id: item.id }}">
-          <c-xsd-item :item='item'></c-xsd-item>
-        </router-link>
+
+        <c-xsd-item :item='item' @xsd-item-click="itemClick">
+          <div slot="right" class="text-center">
+            <router-link :to="{ name: 'supplier/item/post', params: { id: item.id }}">
+              <h2 class="text-bold">{{item.posts.length}}</h2>
+              <h5>发布</h5>
+            </router-link>
+          </div>
+        </c-xsd-item>
+
       </c-cell>
     </div>
 
-    <c-xsd-toolbar>
-      <router-link class="btn" to="/supplier/item/new">
-        <c-icon name='material-add'></c-icon>
-      </router-link>
-    </c-xsd-toolbar>
+
+
   </c-page>
 </template>
 
 <script>
 import {CPage, CPane, CCell, CIcon, CBackground, CButton, CLoading} from '../../components/base'
-import { CXsdItem, CXsdToolbar } from '../../components/xsd'
+import { CXsdItem } from '../../components/xsd'
 export default {
   data(){
   	return {
@@ -44,6 +58,11 @@ export default {
       this.items = this.$store.getters.items
     }
   },
+  methods: {
+    itemClick(item){
+      this.$router.push({name:'supplier/item', params:{id:item.id}})
+    }
+  },
   components: {
     CPage,
   	CPane,
@@ -52,8 +71,7 @@ export default {
   	CBackground,
   	CButton,
     CLoading,
-    CXsdItem,
-    CXsdToolbar
+    CXsdItem
   }
 }
 </script>

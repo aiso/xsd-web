@@ -21,11 +21,12 @@
 </template>
 
 <script>
-import {CCell} from '../components/base'
+import {CPane, CCell} from '../components/base'
 import Counter from '../components/Counter'
 
 export default {
   components: {
+    CPane,
     CCell,
     Counter
   }

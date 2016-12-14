@@ -1,5 +1,12 @@
 <template>
   <c-page :state="state">
+  <div class="page-content">
+    <div class="flex-row page-header">
+      <div class="page-title flex-auto">编辑产品</div>  
+      <div>
+        <c-button class="mr10 primary fit" label="保存" :submit="save" :disabled="invalid"></c-button>
+      </div>
+    </div>
     <c-pane v-if="item">
       <div class="divider"></div>
       <div>
@@ -45,10 +52,7 @@
         </div>
       </div>
     </c-pane>
-
-    <c-xsd-toolbar>
-      <c-button class="mr10 primary" label="保存" :submit="save" :disabled="invalid"></c-button>
-    </c-xsd-toolbar>
+  </div>
 
   </c-page>
 </template>
@@ -56,7 +60,6 @@
 
 <script>
 import { CPage, CPane, CCell, CLabel, CButton, CIcon, CThumbnail, CFormCell, CAutosizeTextarea } from '../../components/base'
-import { CXsdToolbar } from '../../components/xsd'
 import ImageUtil from '../../utils/image'
 
 export default {
@@ -143,8 +146,7 @@ export default {
     CIcon, 
     CThumbnail,
     CFormCell,
-    CAutosizeTextarea,
-    CXsdToolbar
+    CAutosizeTextarea
   }
 }
 </script>

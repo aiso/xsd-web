@@ -82,6 +82,20 @@ const routes = [
         requiresAuth: true, role : ROLE_SUPPLIER
       }      
     },
+    {
+      path: '/supplier/item/:id(\\d+)/post',
+      name: 'supplier/item/post',
+      component: resolve => {
+        require.ensure([], () => {
+          resolve(require('../views/supplier/item-post'))
+        }, 'group-supplier')
+      },
+      meta: { 
+        icon:'material-tag',
+        title:'发布产品',
+        requiresAuth: true, role : ROLE_SUPPLIER
+      }      
+    },
 ]
 
 const navigation = {

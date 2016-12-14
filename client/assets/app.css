@@ -81,27 +81,40 @@ h6{
   & .notice-fillter{
     padding-top: var(--header);
   }
+}
 
-  .page-content{
-    padding: 35px 0 0 0;
+.page-content{
+  padding: 35px 0 0 0;
+  max-width: var(--pageContentWidth);
+}
+
+.page-header{
+  padding: 2px 0 10px 0;
+  margin-bottom: 20px;
+  font-style: normal;
+
+  &.border{
+    border-bottom: 1px solid var(--border);
   }
+}
 
-  .page-title{
-    color: rgba(0,0,0,.8);
-    font-size: 24px;
-    line-height: 1em;
-    vertical-align: bottom;
-    padding: 2px 0 10px 0;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    font-weight: 300;
-    font-style: normal;
+.page-title{
+  color: rgba(0,0,0,.8);
+  font-size: 24px;
+  line-height: 1em;
+  vertical-align: bottom;
+  letter-spacing: 1px;
+  font-weight: 300;
+  font-style: normal;
+}
 
-    &.border{
-      border-bottom: 1px solid var(--border);
-    }
-  }
-  
+.page-sidebar{
+  padding: 35px 0 0 0;
+  position: absolute;
+  right:0;
+  top: 0;
+  z-index: 2;
+  width: 300px;
 }
 
 .map-wrapper{
@@ -212,12 +225,36 @@ h6{
 }
 
 .btn{
+  cursor: pointer;
+
   &:active {
     background-color: color(var(--secondary) alpha(10%))
   }
 }
 
+.btn-icon{
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 2px;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+
+  .c-icon{
+    font-size: 24px;
+    line-height: 44px;
+  }
+
+  &:active,&.active{
+    color: white;
+    background: var(--primary);
+  }
+}
+
 .btn-block{
+  cursor: pointer;
   color:white;
   background: var(--grayLight);
 
@@ -227,6 +264,49 @@ h6{
 
   &:active{
     opacity: .6
+  }
+}
+
+.btn-line {
+  cursor: pointer;
+  padding:.5em 1em;
+  display: inline-block;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: left;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  vertical-align: middle;
+  text-align: center;
+
+  &:active,&.active{
+    color: white;
+    background: var(--primary);
+  }
+}
+
+.btn-round{
+  cursor: pointer;
+  display: inline-block;
+  line-height: 32px;
+  height: 32px;
+  min-width: 32px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 20px;
+
+  .c-icon{
+    line-height: 32px;
+  }
+
+  &:active {
+    opacity: .6;
+  }
+
+  &.white{
+    color: var(--text);
+    background: white;
   }
 }
 

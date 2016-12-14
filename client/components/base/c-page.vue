@@ -29,14 +29,14 @@ export default {
 
 <style>
 .c-page{
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding-top: var(--header);
-  padding-bottom: var(--footerHeight);
+  margin-top: var(--header);
 
   & .notice-fillter{
-    padding-top: var(--header);
+    margin-top: var(--header);
   }
 }
 

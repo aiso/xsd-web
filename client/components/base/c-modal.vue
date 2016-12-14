@@ -29,8 +29,9 @@ export default {
 .c-modal {
   position: fixed;
   z-index: 1001;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  top: 150px;
+  left:50%;
+  margin-left: -250px;
+  width: 500px;
 }
 </style>
