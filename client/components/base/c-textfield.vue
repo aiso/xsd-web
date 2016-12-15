@@ -33,12 +33,12 @@ export default {
     letter-spacing: 1px;
   }
 }
-
+/*
 .c-textfield-input{
   @mixin w-input;
 
 }
-
+*/
 
 
 </style>

@@ -31,7 +31,7 @@ export default {
   z-index: 1001;
   top: 150px;
   left:50%;
-  margin-left: -250px;
-  width: 500px;
+  margin-left: -200px;
+  width: 400px;
 }
 </style>

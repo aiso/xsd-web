@@ -3,12 +3,14 @@
     <div class="page-content">
       <div class="page-title mb20 flex-auto">产品发布</div>  
       <div v-if="!!item">
-        <c-xsd-item :item='item' class="mb20"></c-xsd-item> 
+        <c-xsd-item :item='item' style="margin-bottom:40px"></c-xsd-item> 
         <div v-if="!!posts&&posts.length>0">
           <div class="flex-row mb10">
-            <h3 class="c-field-header flex-auto">服务站</h3>
-            <h3 class="c-field-header field-price">发布价格</h3>
-            <h3 class="c-field-header field-actions"></h3>
+            <h4 class="c-field-header flex-auto">服务站</h4>
+            <h4 class="c-field-header field-price">发布价格</h4>
+            <h4 class="c-field-header field-fee">代理费率</h4>
+            <h4 class="c-field-header field-state">状态</h4>
+            <h4 class="c-field-header field-actions"></h4>
           </div>
           <c-cell v-for="(post,index) in posts" class="flex-row">
             <a class="flex-auto btn" @click="showMap(post.station)">
@@ -17,6 +19,13 @@
             </a>
             <div class="field-price">
               <c-price :amount="post.price"></c-price>
+            </div>
+            <div class="field-fee">
+              <h4 class="font-montserrat">{{post.fee}}%</h4>
+            </div>
+            <div class="field-state">
+              <h4 v-show="post.status==0" class="c-text-light text-bold">待批</h4>
+              <h5 v-show="post.status==1" class="c-green text-bold">代理中</h5>
             </div>
             <div class="field-actions">
               <a class="btn-icon" @click="removePost(post)"><c-icon name="material-delete_forever"></c-icon></a>
@@ -47,12 +56,40 @@
       </div>
     </c-xsd-map>
 
+    <c-modal :show="!!postModal" @maskClicked="postModal=null">
+      <div class="bg-white p20">
+        <h3 class="mb15 pl5">发布</h3>
+        <div class="flex-row input-cell mb10">
+          <h4 class="c-text-light">发布价格：</h4>
+          <c-textfield :model="price" class="flex-auto"></c-textfield>
+          <h4>元</h4>
+        </div>
+        <div class="flex-row input-cell mb20">
+          <h4 class="c-text-light">代理费率：</h4>
+          <c-textfield :model="fee" class="flex-auto"></c-textfield>
+          <h4>%</h4>
+        </div>
+        <div class="flex-row">
+          <div class="flex-auto">
+            <p class="right-hint c-red text-bold" v-if="validations.priceRequred">价格不能空</p>
+            <p class="right-hint c-red text-bold" v-if="validations.pricePattern">价格格式错误</p>
+
+            <p class="right-hint c-red text-bold" v-if="validations.feeRequred">费率不能空</p>
+            <p class="right-hint c-red text-bold" v-if="validations.feePattern">费率格式错误</p>
+          </div>
+          <div>
+            <c-button label="提交" class="primary fit" :disabled="!formValid" :submit="submitPost"></c-button>  
+          </div>
+          
+        </div>
+      </div>
+    </c-modal>
 
   </c-page>
 </template>
 
 <script>
-import { CPage, CPane, CCell, CIcon, CPrice, CButton, CModal } from '../../components/base'
+import { CPage, CPane, CCell, CIcon, CPrice, CButton, CModal, CFormCell, CTextfield } from '../../components/base'
 import { CXsdItem, CXsdMap } from '../../components/xsd'
 
 export default {
@@ -61,7 +98,54 @@ export default {
       map:null,
       postModal:null,
       stations:[],
-      item:null
+      item:null,
+      price:{
+        name:'price',
+        value:null,
+        attrs: {
+          placeholder: '0.00'
+        },
+        validators: {
+          required: true,
+          pattern: {
+            rule: '/^[0-9]{1,7}(\.[0-9]{1,2})?$/',
+            message: '价格格式错误'
+          }          
+        },
+        validation: result=>{
+          this.validations.priceValid = result.valid
+          this.validations.priceRequred = result.required
+          this.validations.pricePattern = result.pattern
+        }
+      },   
+      fee:{
+        name:'fee',
+        value:null,
+        attrs: {
+          placeholder: '百分比'
+        },
+        validators: {
+          required: true,
+          pattern: {
+            rule: '/^[0-9]{1,2}(\.[0-9]{1,2})?$/',
+            message: '价格格式错误'
+          }       
+        },
+        validation: result=>{
+          this.validations.feeValid = result.valid
+          this.validations.feeRequred = result.required
+          this.validations.feePattern = result.pattern
+        }
+      }, 
+      validations: {
+        priceValid:false,
+        priceRequred:false,
+        pricePattern:false,
+
+        feeValid:false,
+        feeRequred:false,
+        feePattern:false
+      },
     }
   },
   activated(){
@@ -80,11 +164,15 @@ export default {
       }
     },
     addPost(station){
+      /*
       this.$textbox.open('发布价格：').then(price=>{
         this.xsd.api.post('supplier/item/'+this.$route.params.id+'/post', {price, station:station.id}).then(data=>{
           this.item.posts.push(data.post)
         })
-      })
+      })*/
+      this.price.value = this.fee.value = null
+      this.postModal = {idx:-1, station:station.id}
+
     },
     removePost(post){
       this.$confirm.open('确定要删除此发布？').then(()=>{
@@ -95,11 +183,23 @@ export default {
     },
     editPost(idx){
       const post = this.item.posts[idx]
-      this.$textbox.open('发布价格：', post.price).then(price=>{
-        this.xsd.api.post('supplier/post/'+post.id, {price}).then(data=>{
-          this.item.posts[idx].price = price
-        })
-      })
+      this.price.value = post.price
+      this.fee.value = post.fee
+      this.postModal = {idx}
+    },
+    submitPost(){
+      if(this.postModal.idx < 0){
+        this.xsd.api.post('supplier/item/'+this.$route.params.id+'/post', {price:this.price.value, fee:this.fee.value, station:this.postModal.station}).then(data=>{
+          this.item.posts.push(data.post)
+        }).finally(()=>this.postModal=null)
+      }else{
+        const post = this.item.posts[this.postModal.idx]
+        this.xsd.api.post('supplier/post/'+post.id, {price:this.price.value, fee:this.fee.value}).then(data=>{
+          this.item.posts[this.postModal.idx].price = data.post.price
+          this.item.posts[this.postModal.idx].fee = data.post.fee
+        }).finally(()=>this.postModal=null)
+      }
+
     }
   },
   computed:{
@@ -114,8 +214,10 @@ export default {
         p.station = this.stations.find(s=>s.id==post.station)
         return p
       })
+    },
+    formValid(){
+      return this.validations.priceValid && this.validations.feeValid
     }
-
   },
   components: {
   	CPage,
@@ -125,6 +227,8 @@ export default {
     CPrice,
     CButton,
     CModal,
+    CFormCell,
+    CTextfield,
     CXsdMap,
     CXsdItem
   }
@@ -139,6 +243,14 @@ export default {
   }
 
   .field-price{
+    width: 100px;
+    text-align: center;
+  }
+  .field-fee{
+    width: 100px;
+    text-align: center;
+  }
+  .field-state{
     width: 100px;
     text-align: center;
   }
