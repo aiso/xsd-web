@@ -13,6 +13,12 @@
 			<c-icon class="list-icon" name="material-exit_to_app"></c-icon>
 			<div class="list-title text-ls">安全退出</div>
 		</c-list-item>
+		<router-link :to="{name:'/station/access/wx'}">
+			<c-list-item class="btn">
+				<c-icon class="list-icon" name="material-person"></c-icon>
+				<div class="list-title text-ls">微信接入码</div>
+			</c-list-item>
+		</router-link>
   	</div>
   </c-page>
 </template>

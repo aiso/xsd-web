@@ -23,7 +23,7 @@
           </c-textfield>
         </c-form-cell>
       </c-pane>
-      <c-pane style="padding-left:44px;">
+      <c-pane>
         <c-button class="primary" style="width:auto;padding:0 2rem" :submit="loginSubmit" label="登 录" :disabled="!formValid"></c-button>
       </c-pane>
     </div>
@@ -119,3 +119,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.c-form-cell{
+  background: #f1f1f1;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+.c-textfield-input{
+  border: 0;
+  outline: 0;
+  padding:5px;
+  background: transparent;
+  line-height: 28px;
+}
+</style>
