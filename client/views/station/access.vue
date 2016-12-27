@@ -3,7 +3,7 @@
 
     <div class="page-content" >
       <div class="flex-row page-header">
-        <div class="flex-auto pl20">
+        <div class="flex-auto">
           <div class="page-title mb5">微信客户端接入</div>  
           <h4 class="c-text-light">通过微信客户端接入管理日常交易</h4>
         </div>
@@ -15,6 +15,20 @@
         </div>
       </div>
 
+      <div class="flex-row border-top pt20" v-for="role in roles">
+        <c-avatar :src="role.user.img" size="60"></c-avatar>
+        <div class="flex-auto plr20">
+          <h3>{{role.user.name}}</h3>
+          <h4 class="c-text-light">最后登录：{{role.user.last_login}}</h4>
+        </div>
+        <div>
+          <a class="btn-icon" @click="unlink(role)">
+            <c-icon name="material-clear"></c-icon>  
+          </a>
+          
+        </div>
+      </div>
+
     </div>
 
   </c-page>
@@ -22,7 +36,7 @@
 
 
 <script>
-import {CPage, CPane, CIcon, CPrice} from '../../components/base'
+import {CPage, CPane, CIcon, CPrice, CAvatar} from '../../components/base'
 
 
 export default {
@@ -30,17 +44,26 @@ export default {
     return {
       //state:this.xsd.state.loading,
       state:this.xsd.state.normal,
-      users:[],
+      roles:[],
       token:null
     }
   },
-  activated(){
-
+  created(){
+      this.xsd.api.get('station/access/roles').then(data=>{
+        this.roles = data.roles
+      })
   },
   methods:{
     getToken(){
       this.xsd.api.get('station/access/token').then(data=>{
         this.token = data.token
+      })
+    },
+    unlink(role){
+      this.$confirm.open('确实删除该接入？').then(()=>{
+        this.xsd.api.delete('station/role/'+role.id).then(data=>{
+          this.roles = this.roles.filter(c=>c.id!=role.id)
+        })
       })
     }
   },
@@ -49,6 +72,7 @@ export default {
     CPane,
   	CIcon,
     CPrice,
+    CAvatar
   }
 }
 </script>
