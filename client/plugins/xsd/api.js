@@ -12,7 +12,7 @@ function chkAuth(){
 	if(!!user){
 	  return  { mutate: options => {
 	    //console.log(user);
-	    options['headers']['Authorization'] = base64.encode(user.id + ":" + user.token);
+	    options['headers']['Authorization'] = base64.encode(user.id + ":" + user.access_token);
 	    return Promise.resolve(options)
 	  } }
 	}

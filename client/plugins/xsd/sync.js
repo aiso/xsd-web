@@ -7,11 +7,11 @@ import action from './action'
 
 const entities = {
 	base : () => {
-		return api.get('static/default').then(data=>{
-		    //sd.initActions(data.actions)
-		    action.init(data.actions)
-		    service.init(data.services)
-			return data
+		return api.get('xsd/base').then(data=>{
+		    //sd.initActions(data.base.actions)
+		    action.init(data.base.actions)
+		    service.init(data.base.services)
+			return data.base
         })
 	},
 	transes : () =>{

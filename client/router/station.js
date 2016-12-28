@@ -2,6 +2,19 @@ const ROLE_STATION = 30
 
 const routes = [
     {
+      path: '/station/posts',
+      component: resolve => {
+        require.ensure([], () => {
+          resolve(require('../views/station/posts'))
+        }, 'group-station')
+      },
+      meta: { 
+        icon:'material-local_offer',
+        title:'代理产品',
+        requiresAuth: true, role: ROLE_STATION
+      }
+    },
+    {
       path: '/station/access',
       component: resolve => {
         require.ensure([], () => {
@@ -9,7 +22,7 @@ const routes = [
         }, 'group-station')
       },
       meta: { 
-        icon:'material-work',
+        icon:'material-person_add',
         title:'人员接入',
         requiresAuth: true, role: ROLE_STATION
       }
@@ -31,6 +44,7 @@ const routes = [
 
 const navigation = {
   routes: [
+    '/station/posts',
     '/station/access',
     '/station/user'
   ],

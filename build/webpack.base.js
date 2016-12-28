@@ -61,6 +61,7 @@ module.exports = {
     'material-chevron_right',
     'material-clear',
     'material-person',
+    'material-person_add',
     'material-vpn_key',
     'material-add',
     'material-remove',
